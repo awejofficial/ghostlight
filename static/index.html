@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghostlight — a local-AI ofrenda</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="petals" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="candles candles-small" aria-hidden="true">
+    <span class="candle"><span class="flame"></span></span>
+    <span class="candle tall"><span class="flame"></span></span>
+    <span class="candle"><span class="flame"></span></span>
+  </div>
+  <h1>Ghostlight</h1>
+  <p class="tagline">A digital <em>ofrenda</em> lit by a local ghost.</p>
+  <p class="sub">
+    For Día de los Muertos, we build an altar so the ones we lost can find their way back
+    for one evening. Ghostlight keeps that altar on your own machine: leave a name, an
+    offering and a memory, and <strong>Gemma 3</strong> — an open-weight model running
+    entirely on your computer — writes the words. Nothing is uploaded. Grief is private.
+  </p>
+  <p id="model-status" class="status">checking whether the ghost is home…</p>
+</header>
+
+<main>
+  <section class="panel" id="light-panel">
+    <h2>Light a candle</h2>
+    <form id="light-form">
+      <label>
+        Their name
+        <input name="name" required maxlength="80" placeholder="e.g. Abuela Rosa">
+      </label>
+      <label>
+        Who were they to you?
+        <input name="relation" maxlength="120" placeholder="e.g. my grandmother, who raised me">
+      </label>
+      <div class="row">
+        <label>
+          An offering — their favourite food
+          <input name="food" maxlength="120" placeholder="e.g. pan dulce and hot chocolate">
+        </label>
+        <label>
+          A song that brings them back
+          <input name="song" maxlength="120" placeholder="e.g. La Llorona">
+        </label>
+      </div>
+      <label>
+        A memory to leave on the altar
+        <textarea name="memory" rows="4" maxlength="1200"
+          placeholder="The kitchen radio always on, her laughing at her own jokes before the punchline…"></textarea>
+      </label>
+      <fieldset class="modes">
+        <legend>What should the ghost do?</legend>
+        <label class="mode">
+          <input type="radio" name="mode" value="remembrance" checked>
+          <span><strong>Write a remembrance</strong> — a few warm words for the altar.</span>
+        </label>
+        <label class="mode">
+          <input type="radio" name="mode" value="seance">
+          <span><strong>Séance mode</strong> — a short message as if they were speaking back.</span>
+        </label>
+      </fieldset>
+      <button type="submit" id="light-btn">🕯️ Light the candle</button>
+      <p id="form-error" class="error" role="alert"></p>
+    </form>
+  </section>
+
+  <section class="panel altar hidden" id="altar-panel" aria-live="polite">
+    <div class="candles" aria-hidden="true">
+      <span class="candle"><span class="flame"></span></span>
+      <span class="candle tall"><span class="flame"></span></span>
+      <span class="candle"><span class="flame"></span></span>
+      <span class="candle tall"><span class="flame"></span></span>
+      <span class="candle"><span class="flame"></span></span>
+    </div>
+    <p class="altar-for">an altar for</p>
+    <h2 id="altar-name"></h2>
+    <p id="altar-relation" class="altar-relation"></p>
+    <div id="altar-offerings" class="offerings"></div>
+    <p id="altar-words" class="words"></p>
+    <p class="altar-mode" id="altar-mode"></p>
+  </section>
+
+  <section class="panel" id="gallery-panel">
+    <h2>Altars lit on this machine</h2>
+    <p class="sub">Stored only in a local file (<code>data/altars.json</code>). Delete the file and they are gone — the dead keep no backups.</p>
+    <div id="gallery" class="gallery"></div>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Ghostlight · Built for the Hacktoberfest Open-Source AI Challenge, Week 4: <em>Ghost in the Machine</em>.<br>
+    Gemma 3 (open weights) served locally by llama.cpp · No cloud, no accounts, no tracking.
+  </p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

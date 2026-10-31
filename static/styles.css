@@ -1,0 +1,171 @@
+:root {
+  --night: #120a18;
+  --night-2: #1d1029;
+  --bone: #f3e9d2;
+  --bone-dim: #cbbfa4;
+  --marigold: #f5a623;
+  --marigold-deep: #e2703a;
+  --candle: #ffb84d;
+  --panel: rgba(38, 22, 54, 0.72);
+  --line: rgba(245, 166, 35, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 700px at 50% -10%, #2b1847 0%, var(--night) 55%) fixed, var(--night);
+  color: var(--bone);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+#petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+.petal {
+  position: absolute;
+  top: -4vh;
+  border-radius: 60% 40% 60% 40%;
+  background: radial-gradient(circle at 35% 35%, #ffc95e, var(--marigold-deep));
+  opacity: 0.75;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) translateX(6vw) rotate(320deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .petal { animation: none; display: none; }
+  .flame { animation: none !important; }
+}
+
+.hero { text-align: center; padding: 4rem 1.25rem 1rem; position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  letter-spacing: 0.04em;
+  margin: 0.4rem 0 0.2rem;
+  color: var(--bone);
+  text-shadow: 0 0 34px rgba(255, 184, 77, 0.45);
+}
+.tagline { font-size: 1.25rem; color: var(--marigold); margin: 0.2rem 0 1rem; }
+.sub { max-width: 44rem; margin: 0.6rem auto; color: var(--bone-dim); }
+.status { color: var(--bone-dim); font-style: italic; font-size: 0.95rem; }
+.status.ok { color: #9ed08a; }
+.status.down { color: #e88f7a; }
+
+main { position: relative; z-index: 2; padding: 0 1.25rem 2rem; }
+.panel {
+  max-width: 46rem;
+  margin: 1.6rem auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.6rem 1.8rem 1.9rem;
+  backdrop-filter: blur(3px);
+}
+.panel h2 { margin-top: 0; color: var(--marigold); font-weight: normal; letter-spacing: 0.03em; }
+
+form label { display: block; margin: 0.9rem 0; color: var(--bone); font-size: 0.98rem; }
+input[type="text"], input:not([type]), textarea, input[name], textarea {
+  width: 100%;
+  margin-top: 0.35rem;
+  background: #170d24;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--bone);
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+}
+input:focus, textarea:focus { outline: 2px solid var(--marigold); outline-offset: 1px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 620px) { .row { grid-template-columns: 1fr; } }
+
+.modes { border: 1px solid var(--line); border-radius: 10px; margin: 1.1rem 0; padding: 0.7rem 1rem 0.9rem; }
+.modes legend { color: var(--marigold); padding: 0 0.4rem; }
+.mode { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.55rem 0; cursor: pointer; }
+.mode input { margin-top: 0.3rem; accent-color: var(--marigold); }
+
+button {
+  font: inherit;
+  font-size: 1.1rem;
+  background: linear-gradient(180deg, #ffb84d, var(--marigold-deep));
+  color: #2a1402;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.7rem;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(255, 160, 50, 0.35);
+}
+button:hover { filter: brightness(1.07); }
+button:disabled { opacity: 0.55; cursor: wait; box-shadow: none; }
+.error { color: #ff9d8a; min-height: 1.2em; }
+
+.candles { display: flex; justify-content: center; gap: 1.1rem; align-items: flex-end; min-height: 64px; }
+.candles-small { min-height: 44px; }
+.candle {
+  position: relative;
+  width: 14px; height: 40px;
+  background: linear-gradient(180deg, #fff6df, #e8d9b0);
+  border-radius: 3px 3px 5px 5px;
+  display: inline-block;
+}
+.candle.tall { height: 56px; }
+.candles-small .candle { height: 26px; }
+.candles-small .candle.tall { height: 36px; }
+.flame {
+  position: absolute;
+  left: 50%; top: -17px;
+  width: 13px; height: 18px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 65% at 50% 68%, #fff8d6 0%, #ffd23e 38%, #ff8b2a 72%, rgba(255, 110, 20, 0) 100%);
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  animation: flicker 1.6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 9px rgba(255, 170, 40, 0.85));
+}
+@keyframes flicker {
+  from { transform: translateX(-52%) scale(1) rotate(-1.6deg); }
+  to   { transform: translateX(-48%) scale(1.07, 0.94) rotate(1.8deg); }
+}
+
+.altar { text-align: center; }
+.hidden { display: none; }
+.altar-for { color: var(--bone-dim); letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0; }
+.altar h2 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.2rem 0; color: var(--bone); text-shadow: 0 0 26px rgba(255, 184, 77, 0.4); }
+.altar-relation { color: var(--marigold); font-style: italic; margin-top: 0; }
+.offerings { display: flex; gap: 0.55rem; justify-content: center; flex-wrap: wrap; margin: 0.9rem 0 1.1rem; }
+.offering {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  color: var(--bone);
+  background: rgba(245, 166, 35, 0.1);
+  font-size: 0.92rem;
+}
+.words {
+  max-width: 36rem;
+  margin: 0.6rem auto 1rem;
+  font-size: 1.14rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  text-align: left;
+}
+.altar-mode { color: var(--bone-dim); font-size: 0.9rem; font-style: italic; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.9rem; }
+.card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  background: rgba(23, 13, 36, 0.65);
+  cursor: pointer;
+  text-align: left;
+  color: var(--bone);
+  font: inherit;
+  width: 100%;
+}
+.card:hover { border-color: var(--marigold); }
+.card .card-name { color: var(--marigold); font-size: 1.05rem; display: block; margin-bottom: 0.2rem; }
+.card .card-meta { color: var(--bone-dim); font-size: 0.85rem; }
+.gallery-empty { color: var(--bone-dim); font-style: italic; }
+
+footer { text-align: center; color: var(--bone-dim); padding: 0.5rem 1.25rem 3rem; font-size: 0.92rem; position: relative; z-index: 2; }
+code { color: var(--marigold); }
